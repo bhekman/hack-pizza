@@ -32,7 +32,8 @@ module.exports = function(app, passport) {
 	app.get('/my-orders', isLoggedIn, function(req, res) {
 		render_my_orders = require('./controller/render_my_orders.js');
     // TODO(bhekman): don't hardcode the email.
-    render_my_orders('bhekman@umich.edu', -1, "my_orders.ejs", res);
+    getCurrentUser = require('./controller/get_current_user.js');
+    render_my_orders(getCurrentUser(req), -1, "my_orders.ejs", res);
 	});
 
 	// SINGLE ORDER PAGE
@@ -60,6 +61,12 @@ module.exports = function(app, passport) {
     get_open_orders = require('./controller/get_open_orders.js');
     var orders = get_open_orders(10, res);
 	});
+  // Example usage of getCurrentUser()
+  // Note: You must be logged in as a user to get user email!
+  app.get('/test-user', isLoggedIn, function(req, res) {
+    getCurrentUser = require('./controller/get_current_user.js');
+    res.send(getCurrentUser(req));
+  });
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
