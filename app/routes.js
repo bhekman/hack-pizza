@@ -22,6 +22,26 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
+	// ORDERS PAGE
+	app.get('/orders', function(req, res) {
+		get_open_orders = require('./controller/get_open_orders.js');
+    get_open_orders(10, "orders.ejs", res);
+	});
+
+	// SINGLE ORDER PAGE
+	app.get('/order/:key(*)', function(req, res) {
+		get_order = require('./controller/get_order.js');
+    get_order(req.params.key, "order.ejs", res);
+	});
+
+	// API ==============================
+  // TODO(bhekman): Make more api calls.
+	// ORDER
+	app.get('/api/order/:key(*)', function(req, res) {
+		get_single = require('./controller/api/get_single_order.js');
+    get_single(req.params.key, res);
+	});
+
 	// TESTS ==============================
   // Example usage of createOrder().
 	app.get('/test-create', function(req, res) {
@@ -32,12 +52,6 @@ module.exports = function(app, passport) {
 	app.get('/test-get', function(req, res) {
     get_open_orders = require('./controller/get_open_orders.js');
     var orders = get_open_orders(10, res);
-	});
-
-	// ORDERS
-	app.get('/orders', function(req, res) {
-		get_open_orders = require('./controller/get_open_orders.js');
-    get_open_orders(10, res);
 	});
 
 // =============================================================================
