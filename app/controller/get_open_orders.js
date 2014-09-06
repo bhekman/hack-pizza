@@ -6,7 +6,7 @@ module.exports = function getOpenOrders(max_orders, res) {
   var db = mongoose.createConnection(db_config.url);
   var Order = mongoose.model('Order', orderSchema);
 
-  var orders = Order.find({},function(err,docs){
+  var orders = Order.find({ status: 'created' },function(err,docs){
       if (err)
           console.log('error occured in the database');
       found_orders = JSON.stringify(docs);
