@@ -31,9 +31,16 @@ module.exports = function(app, passport) {
 	// MY ORDERS PAGE
 	app.get('/my-orders', isLoggedIn, function(req, res) {
 		render_my_orders = require('./controller/render_my_orders.js');
-    // TODO(bhekman): don't hardcode the email.
     getCurrentUser = require('./controller/get_current_user.js');
     render_my_orders(getCurrentUser(req), -1, "my_orders.ejs", res);
+	});
+
+	// DATABASE WRAPPERS ==============================
+	// CREATE ORDER
+	app.get('/create-order', isLoggedIn, function(req, res) {
+    create_order = require('./controller/create_order.js');
+    getCurrentUser = require('./controller/get_current_user.js');
+    var new_order = create_order(getCurrentUser(req), req.query, res);
 	});
 
 	// SINGLE ORDER PAGE

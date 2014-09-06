@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var db_config = require('../../config/database.js');
 var orderSchema = require('../models/order.js');
 
-module.exports = function createOrder(query, res) {
+module.exports = function createOrder(user_email, query, res) {
   var db = mongoose.createConnection(db_config.url);
   var Order = db.model('Order', orderSchema);
 
@@ -22,8 +22,11 @@ module.exports = function createOrder(query, res) {
     res.send("slice_cost, " + san.sanitize(query.slice_cost)
         + ", isn't a float!");
   // status is set to 'created'.
-  if (!val.isEmail(query.orderer_email))
-    res.send("orderer_email, " + san.sanitize(query.orderer_email)
+  if (val.isNull(user_email))
+    res.send("user_email, " + san.sanitize(user_email)
+        + ", is null!");
+  if (!val.isEmail(user_email))
+    res.send("user_email, " + san.sanitize(user_email)
         + ", isn't a email!");
   if (!val.isInt(query.orderer_slices))
     res.send("orderer_slices, " + san.sanitize(query.orderer_slices)
@@ -47,7 +50,7 @@ module.exports = function createOrder(query, res) {
     slice_cost: query.slice_cost,
     status: 'created',
     orderer: {
-      email: san.sanitize(query.orderer_email),
+      email: san.sanitize(user_email),
       slices: san.sanitize(query.orderer_slices),
     },
     location: {
