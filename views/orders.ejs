@@ -57,29 +57,54 @@
 			</div>
 			<div class="panel-body">
 				<form class="form-horizontal">
+					<!-- Name Input -->
 					<div class="form-group">
-							<label for="inputEmail" class="control-label col-xs-2">Email</label>
-							<div class="col-xs-10">
-									<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+							<label for="inputName" class="control-label col-xs-3">Your Name</label>
+							<div class="col-xs-8">
+									<input type="email" class="form-control" id="inputName" placeholder="Name">
 							</div>
 					</div>
+					<!-- Description Input -->
 					<div class="form-group">
-							<label for="inputPassword" class="control-label col-xs-2">Password</label>
-							<div class="col-xs-10">
-									<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+							<label for="inputDescription" class="control-label col-xs-3">Order Description</label>
+							<div class="col-xs-8">
+									<textarea class="form-control" id="inputDescription" placeholder="Description"></textarea>
 							</div>
 					</div>
+					<!-- Number of Slices Input -->
 					<div class="form-group">
-							<div class="col-xs-offset-2 col-xs-10">
-									<div class="checkbox">
-											<label><input type="checkbox"> Remember me</label>
-									</div>
+							<label for="inputSlices" class="control-label col-xs-3">Number of Slices in Order</label>
+							<div class="col-xs-8">
+									<input type="number" class="form-control" id="inputSlices" placeholder="Number of slices">
 							</div>
 					</div>
+					<!-- Cost per Slice Input -->
 					<div class="form-group">
-							<div class="col-xs-offset-2 col-xs-10">
-									<button type="submit" class="btn btn-primary">Login</button>
+							<label for="inputCost" class="control-label col-xs-3">Cost Per Slice</label>
+							<div class="col-xs-8">
+									<input type="number" class="form-control" id="inputCost" placeholder="Cost per slice">
 							</div>
+					</div>
+					<!-- Orderer Slices Input -->
+					<div class="form-group">
+							<label for="inputOrdererSlices" class="control-label col-xs-3">Number of Slices You Want</label>
+							<div class="col-xs-8">
+									<input type="number" class="form-control" id="inputOrdererSlices" placeholder="Number of slices you want">
+							</div>
+					</div>
+					<!-- Location Input -->
+					<div class="form-group">
+							<label for="inputName" class="control-label col-xs-3">Location</label>
+					</div>
+					<div class="pull-right">
+						<script
+							src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+							data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+							data-image="static/img/logo.png"
+							data-name="hack_pizza"
+							data-description="2 widgets ($20.00)"
+							data-amount="2000">
+						</script>
 					</div>
 			</form>
 			</div>
