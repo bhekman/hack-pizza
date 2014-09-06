@@ -37,7 +37,7 @@ module.exports = function(app, passport) {
 	// ORDERS
 	app.get('/orders', function(req, res) {
 		get_open_orders = require('./controller/get_open_orders.js');
-    get_open_orders(10, res);
+    get_open_orders(10, "orders.ejs", res);
 	});
 
 // =============================================================================
