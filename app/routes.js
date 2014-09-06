@@ -25,8 +25,7 @@ module.exports = function(app, passport) {
 	// NEARBY ORDERS PAGE
 	app.get('/nearby-orders', function(req, res) {
 		render_nearby_orders = require('./controller/render_nearby_orders.js');
-    // TODO(jufranz): refactor to nearby_orders.js
-    render_nearby_orders(-1, "orders.ejs", res);
+    render_nearby_orders(-1, "nearby_orders.ejs", res);
   });
 
 	// MY ORDERS PAGE
