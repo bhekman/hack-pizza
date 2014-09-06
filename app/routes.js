@@ -23,20 +23,20 @@ module.exports = function(app, passport) {
 	});
 
 	// NEARBY ORDERS PAGE
-	app.get('/nearby-orders', function(req, res) {
+	app.get('/nearby-orders', isLoggedIn, function(req, res) {
 		render_nearby_orders = require('./controller/render_nearby_orders.js');
     render_nearby_orders(-1, "nearby_orders.ejs", res);
   });
 
 	// MY ORDERS PAGE
-	app.get('/my-orders', function(req, res) {
+	app.get('/my-orders', isLoggedIn, function(req, res) {
 		render_my_orders = require('./controller/render_my_orders.js');
     // TODO(bhekman): don't hardcode the email.
     render_my_orders('bhekman@umich.edu', -1, "my_orders.ejs", res);
 	});
 
 	// SINGLE ORDER PAGE
-	app.get('/order/:key(*)', function(req, res) {
+	app.get('/order/:key(*)', isLoggedIn, function(req, res) {
 		render_order = require('./controller/render_order.js');
     render_order(req.params.key, "order.ejs", res);
 	});
