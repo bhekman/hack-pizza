@@ -4,10 +4,11 @@
 	<title>Node Authentication</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/jumbotron-narrow.css">
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="//cod>e.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="ejs_production.js"></script>
+	<script type="text/javascript" src="static/js/ejs_production.js"></script>
 	<style>
 		body 		{ padding-top:80px; }
 		.borderless > tbody > tr > td {
@@ -19,9 +20,12 @@
 <div class="container">
 	<div class="jumbotron text-center">
 		<h1>hack_pizza</h1>
+	</div>
+		<h2>Nearby Orders
+		<a class="btn btn-default pull-right" href="#add-order">Add Order</a>
+		</h2>
 		<br>
-		<h2>Nearby Orders</h2>
-		<br>
+	<div>
 		<% for(var i=0; i < orders.length; i++) { %>
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -46,6 +50,40 @@
 			</div>
 		</div>
 		<% } %>
+		<hr>
+		<div class="panel panel-default" id="add-order">
+			<div class="panel-heading">
+				<h3>Add Order</h3>
+			</div>
+			<div class="panel-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+							<label for="inputEmail" class="control-label col-xs-2">Email</label>
+							<div class="col-xs-10">
+									<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+							</div>
+					</div>
+					<div class="form-group">
+							<label for="inputPassword" class="control-label col-xs-2">Password</label>
+							<div class="col-xs-10">
+									<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+							</div>
+					</div>
+					<div class="form-group">
+							<div class="col-xs-offset-2 col-xs-10">
+									<div class="checkbox">
+											<label><input type="checkbox"> Remember me</label>
+									</div>
+							</div>
+					</div>
+					<div class="form-group">
+							<div class="col-xs-offset-2 col-xs-10">
+									<button type="submit" class="btn btn-primary">Login</button>
+							</div>
+					</div>
+			</form>
+			</div>
+		</div>
 	</div>
 </div>
 </body>
