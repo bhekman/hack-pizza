@@ -9,11 +9,9 @@ module.exports = function getOpenOrders(max_orders, res) {
   var orders = Order.find({ status: 'created' },function(err,docs){
       if (err)
           console.log('error occured in the database');
-      found_orders = JSON.stringify(docs);
 
-      console.log(found_orders);
-      res.send(found_orders);
-  // TODO(bhekman): fix order limiting
+      res.render("orders.ejs", { orders : docs });
+      // TODO(bhekman): fix order limiting
   })/*.limit(max_orders)*/;  
 }
 

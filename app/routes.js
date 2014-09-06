@@ -35,42 +35,9 @@ module.exports = function(app, passport) {
 	});
 
 	// ORDERS
-  // DEPRECATED: TODO(jufranz): remove this once real data is in the db.
 	app.get('/orders', function(req, res) {
-    var o = [{
-      total_slices     : 8,
-      slice_cost       : 1.5,
-      status           : "created", // created, ordered, delivered
-      orderer          : {
-          email        : "bhekman@umich.edu",
-          slices       : 1
-      },
-      groupies         : {
-      },
-      location         : {
-          latitude     : 51.5033630,
-          longitude    : -0.1276250,
-          description  : "awesome place of awesomeness.",
-      },
-    },{
-      total_slices     : 6,
-      slice_cost       : 2.5,
-      status           : "ordered", // created, ordered, delivered
-      orderer          : {
-          email        : "pmchen@umich.edu",
-          slices       : 2
-      },
-      groupies         : {
-          email        : "jufranz@umich.edu",
-          slices       : 4
-      },
-      location         : {
-          latitude     : 51.5033630,
-          longitude    : -0.1276250,
-          description  : "awesome place of awesomeness.",
-      },
-    }]
-		res.render('orders.ejs', { orders: o });
+		get_open_orders = require('./controller/get_open_orders.js');
+    get_open_orders(10, res);
 	});
 
 // =============================================================================
