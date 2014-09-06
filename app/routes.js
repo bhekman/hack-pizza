@@ -22,11 +22,16 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
-	// TEST ==============================
+	// TESTS ==============================
+  // Example usage of createOrder().
+	app.get('/test-create', function(req, res) {
+    create_order = require('./controller/create_order.js');
+    var new_order = create_order(req.query, res);
+	});
   // Example usage of getOpenOrders().
-	app.get('/test', function(req, res) {
-    orders_controller = require('./controller/open_orders.js');
-    res.send(orders_controller(10));
+	app.get('/test-get', function(req, res) {
+    get_open_orders = require('./controller/get_open_orders.js');
+    var orders = get_open_orders(10, res);
 	});
 
 	// ORDERS
