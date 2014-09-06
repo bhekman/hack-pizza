@@ -22,25 +22,33 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
-	// ORDERS PAGE
-	app.get('/orders', function(req, res) {
-		get_open_orders = require('./controller/get_open_orders.js');
-    get_open_orders(10, "orders.ejs", res);
+	// NEARBY ORDERS PAGE
+	app.get('/nearby-orders', function(req, res) {
+		render_nearby_orders = require('./controller/render_nearby_orders.js');
+    // TODO(jufranz): refactor to nearby_orders.js
+    render_nearby_orders(-1, "orders.ejs", res);
+  });
+
+	// MY ORDERS PAGE
+	app.get('/my-orders', function(req, res) {
+		render_my_orders = require('./controller/render_my_orders.js');
+    // TODO(bhekman): don't hardcode the email.
+    render_my_orders('bhekman@umich.edu', -1, "orders.ejs", res);
 	});
 
 	// SINGLE ORDER PAGE
 	app.get('/order/:key(*)', function(req, res) {
-		get_order = require('./controller/get_order.js');
-    get_order(req.params.key, "order.ejs", res);
+		render_order = require('./controller/render_order.js');
+    render_order(req.params.key, "order.ejs", res);
 	});
 
 	// API ==============================
   // TODO(bhekman): Make more api calls.
 	// ORDER
-	app.get('/api/order/:key(*)', function(req, res) {
-		get_single = require('./controller/api/get_single_order.js');
-    get_single(req.params.key, res);
-	});
+	//app.get('/api/order/:key(*)', function(req, res) {
+		//get_single = require('./controller/api/get_single_order.js');
+    //get_single(req.params.key, res);
+	//});
 
 	// TESTS ==============================
   // Example usage of createOrder().
