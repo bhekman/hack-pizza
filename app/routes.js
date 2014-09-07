@@ -37,7 +37,7 @@ module.exports = function(app, passport) {
 
 	// DATABASE WRAPPERS ==============================
 	// CREATE ORDER
-	app.get('/create-order', isLoggedIn, function(req, res) {
+	app.post('/create-order', isLoggedIn, function(req, res) {
     create_order = require('./controller/create_order.js');
     getCurrentUser = require('./controller/get_current_user.js');
     var new_order = create_order(getCurrentUser(req), req.query, res);

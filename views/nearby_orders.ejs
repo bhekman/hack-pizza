@@ -63,36 +63,35 @@
 					<div class="form-group">
 							<label for="inputName" class="control-label col-xs-3">Your Name</label>
 							<div class="col-xs-8">
-									<input type="text" class="form-control" id="inputName" placeholder="Name">
+									<input type="text" class="form-control" id="order_name" placeholder="Name">
 							</div>
 					</div>
 					<!-- Description Input -->
 					<div class="form-group">
 							<label for="inputDescription" class="control-label col-xs-3">Order Description</label>
 							<div class="col-xs-8">
-									<textarea class="form-control" id="inputDescription" placeholder="Description"></textarea>
+									<textarea class="form-control" id="order_description" placeholder="Description"></textarea>
 							</div>
 					</div>
 					<!-- Number of Slices Input -->
 					<div class="form-group">
-							<label for="inputSlices" class="control-label col-xs-3">Number of Slices in Order</label>
+							<label for="total_slices" class="control-label col-xs-3">Number of Slices in Order</label>
 							<div class="col-xs-8">
-									<input type="number" class="form-control" id="inputSlices" placeholder="Number of slices">
-                  <p id="inputSlicesError" hidden>Invalid number of slices</p>
+									<input type="number" class="form-control" id="total_slices" placeholder="Number of slices">
 							</div>
 					</div>
 					<!-- Cost per Slice Input -->
 					<div class="form-group">
-							<label for="inputCost" class="control-label col-xs-3">Cost Per Slice</label>
+							<label for="slice_cost" class="control-label col-xs-3">Cost Per Slice</label>
 							<div class="col-xs-8">
-									<input type="number" min="0.01" step="0.25" pattern="^\d*(\.\d{2}$)?" title="CDA Currency Format - no dollar sign and no comma(s) - cents (.##) are optional" class="form-control" id="inputCost" placeholder="Cost per slice">
+									<input type="number" min="0.01" step="0.25" pattern="^\d*(\.\d{2}$)?" title="CDA Currency Format - no dollar sign and no comma(s) - cents (.##) are optional" class="form-control" id="slice_cost" placeholder="Cost per slice">
 							</div>
 					</div>
 					<!-- Orderer Slices Input -->
 					<div class="form-group">
 							<label for="inputOrdererSlices" class="control-label col-xs-3">Number of Slices You Want</label>
 							<div class="col-xs-8">
-									<input type="number" class="form-control" id="inputOrderedSlices" placeholder="Number of slices you want">
+									<input type="number" class="form-control" id="orderer_slices" placeholder="Number of slices you want">
 							</div>
 					</div>
 					<!-- Location Input -->
@@ -114,6 +113,14 @@
                  .attr("value", token)
                  .attr("id", "token")
                  .appendTo("#createForm");
+                $("<input type='text' />")
+                 .attr("value", 0)
+                 .attr("id", "latitude")
+                 .appendTo("#createForm");
+                $("<input type='text' />")
+                 .attr("value", 0)
+                 .attr("id", "longitude")
+                 .appendTo("#createForm");
                 document.getElementById('createForm').submit();
               }
             });
@@ -121,8 +128,8 @@
               // Open Checkout with further options
               handler.open({
                 name: 'hack_pizza',
-                description: document.getElementById('inputOrderedSlices').value + ' slices ($' + (document.getElementById('inputCost').value*document.getElementById('inputOrderedSlices').value).toFixed(2) + ')',
-                amount: (document.getElementById('inputCost').value*document.getElementById('inputOrderedSlices').value)*100
+                description: document.getElementById('orderer_slices').value + ' slices ($' + (document.getElementById('slice_cost').value*document.getElementById('orderer_slices').value).toFixed(2) + ')',
+                amount: (document.getElementById('slice_cost').value*document.getElementById('orderer_slices').value)*100
               });
               e.preventDefault();
             });
