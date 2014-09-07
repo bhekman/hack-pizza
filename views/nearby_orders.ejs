@@ -177,14 +177,14 @@
                 // You can access the token ID with `token.id`
 
                 $("<input type='text' />")
-                 .attr("value", token)
+                 .attr("value", JSON.stringify(token))
                  .attr("name", "token")
                  .appendTo("#create-form");
-                $("<input type='text' />")
+                $("<input type='hidden' />")
                  .attr("value", 0)
                  .attr("name", "latitude")
                  .appendTo("#create-form");
-                $("<input type='text' />")
+                $("<input type='hidden' />")
                  .attr("value", 0)
                  .attr("name", "longitude")
                  .appendTo("#create-form");
