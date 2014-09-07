@@ -36,6 +36,10 @@ module.exports = function createOrder(groupie_email, query, res) {
         + ", isn't an int!");
     return;
   }
+  if (parseInt(query.groupie_slices) <= 0) {
+    res.send("must get at least one slice.");
+    return;
+  }
 
   var db = mongoose.createConnection(db_config.url);
   var Order = mongoose.model('Order', orderSchema);
@@ -60,6 +64,12 @@ module.exports = function createOrder(groupie_email, query, res) {
           email: san.sanitize(groupie_email),
           slices: san.sanitize(query.groupie_slices),
       });
+      doc.available_slices -= parseInt(query.groupie_slices);
+
+      if (doc.available_slices == 0) {
+        // TODO(bhekman): MAKE AN ACTUAL ORDER.
+        doc.status = 'ordered';
+      }
       console.log(doc);
 
       doc.save(function (err) {

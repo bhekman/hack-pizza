@@ -45,16 +45,17 @@ module.exports = function(app, passport) {
 
 	// JOIN ORDER
   // req.query should have: order_key, groupid_slices
-	app.get('/join-order', isLoggedIn, function(req, res) {
+	app.post('/join-order', isLoggedIn, function(req, res) {
     join_order = require('./controller/join_order.js');
     getCurrentUser = require('./controller/get_current_user.js');
-    join_order(getCurrentUser(req), req.query, res);
+    join_order(getCurrentUser(req), req.body, res);
 	});
  
 	// SINGLE ORDER PAGE
 	app.get('/order/:key(*)', isLoggedIn, function(req, res) {
 		render_order = require('./controller/render_order.js');
-    render_order(req.params.key, "order.ejs", res);
+    getCurrentUser = require('./controller/get_current_user.js');
+    render_order(getCurrentUser(req), req.params.key, "order.ejs", res);
 	});
 
 	// API ==============================

@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var db_config = require('../../config/database.js');
 var orderSchema = require('../models/order.js');
 
-module.exports = function getOrder(key, view, res) {
+module.exports = function getOrder(user, key, view, res) {
   var db = mongoose.createConnection(db_config.url);
   var Order = mongoose.model('Order', orderSchema);
 
@@ -12,6 +12,6 @@ module.exports = function getOrder(key, view, res) {
       if (err)
           console.log('error occured in the database');
       console.log(docs);
-      res.render(view, { order : docs });
+      res.render(view, { "order": docs, "user": user });
   });
 }
