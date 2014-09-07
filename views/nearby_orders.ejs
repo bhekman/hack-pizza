@@ -5,10 +5,12 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="static/css/jumbotron-narrow.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css"/>
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="static/js/ejs_production.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"></script>
 	<style>
 		body 		{ padding-top:80px; }
 		.borderless > tbody > tr > td {
@@ -22,7 +24,7 @@
 		<h1>hack_pizza</h1>
 	</div>
 		<h2>Nearby Orders
-		<a class="btn btn-default pull-right" href="#add-order">Add Order</a>
+		<a class="btn btn-default pull-right" href="#add-order">Create Order</a>
 		</h2>
 		<br>
 	<div>
@@ -38,7 +40,7 @@
 				<table class="table borderless">
 				  <tr><td class="col-md-2 text-left">Description:</td><td class="text-left"><%= orders[i].description %></td></tr>
 					<tr><td class="col-md-2 text-left">Status:</td><td class="text-left"><%= orders[i].status %></td></tr>
-					<tr><td class="col-md-2 text-left">Cost:</td><td class="text-left">$<%= orders[i].slice_cost %></td></tr>
+					<tr><td class="col-md-2 text-left">Cost:</td><td class="text-left">$<%= Number(orders[i].slice_cost).toFixed(2) %></td></tr>
 					<tr><td class="col-md-2 text-left">Location:</td><td class="text-left"><%= orders[i].location.description %></td></tr>
 				</table>
 				<hr>
@@ -53,43 +55,43 @@
 		<hr>
 		<div class="panel panel-default" id="add-order">
 			<div class="panel-heading">
-				<h3>Add Order</h3>
+				<h3>Create Order</h3>
 			</div>
 			<div class="panel-body">
-				<form class="form-horizontal">
+				<form class="form-horizontal" action="/create-order" id="createForm" method="post">
 					<!-- Name Input -->
 					<div class="form-group">
 							<label for="inputName" class="control-label col-xs-3">Your Name</label>
 							<div class="col-xs-8">
-									<input type="email" class="form-control" id="inputName" placeholder="Name">
+									<input type="text" class="form-control" id="order_name" placeholder="Name">
 							</div>
 					</div>
 					<!-- Description Input -->
 					<div class="form-group">
 							<label for="inputDescription" class="control-label col-xs-3">Order Description</label>
 							<div class="col-xs-8">
-									<textarea class="form-control" id="inputDescription" placeholder="Description"></textarea>
+									<textarea class="form-control" id="order_description" placeholder="Description"></textarea>
 							</div>
 					</div>
 					<!-- Number of Slices Input -->
 					<div class="form-group">
-							<label for="inputSlices" class="control-label col-xs-3">Number of Slices in Order</label>
+							<label for="total_slices" class="control-label col-xs-3">Number of Slices in Order</label>
 							<div class="col-xs-8">
-									<input type="number" class="form-control" id="inputSlices" placeholder="Number of slices">
+									<input type="number" class="form-control" id="total_slices" placeholder="Number of slices">
 							</div>
 					</div>
 					<!-- Cost per Slice Input -->
 					<div class="form-group">
-							<label for="inputCost" class="control-label col-xs-3">Cost Per Slice</label>
+							<label for="slice_cost" class="control-label col-xs-3">Cost Per Slice</label>
 							<div class="col-xs-8">
-									<input type="number" class="form-control" id="inputCost" placeholder="Cost per slice">
+									<input type="number" min="0.01" step="0.25" pattern="^\d*(\.\d{2}$)?" title="CDA Currency Format - no dollar sign and no comma(s) - cents (.##) are optional" class="form-control" id="slice_cost" placeholder="Cost per slice">
 							</div>
 					</div>
 					<!-- Orderer Slices Input -->
 					<div class="form-group">
 							<label for="inputOrdererSlices" class="control-label col-xs-3">Number of Slices You Want</label>
 							<div class="col-xs-8">
-									<input type="number" class="form-control" id="inputOrdererSlices" placeholder="Number of slices you want">
+									<input type="number" class="form-control" id="orderer_slices" placeholder="Number of slices you want">
 							</div>
 					</div>
 					<!-- Location Input -->
@@ -97,16 +99,43 @@
 							<label for="inputName" class="control-label col-xs-3">Location</label>
 					</div>
 					<div class="pull-right">
-						<script
-							src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-							data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-							data-image="static/img/logo.png"
-							data-name="hack_pizza"
-							data-description="2 widgets ($20.00)"
-							data-amount="2000">
-						</script>
+            <script src="https://checkout.stripe.com/checkout.js"></script>
+            <button type="button" class="btn btn-default btn-lrg pull-right" id="createButton">Create Order</button>
+            <script>
+            var handler = StripeCheckout.configure({
+              key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+              image: '/static/img/logo.png',
+              token: function(token) {
+                // Use the token to create the charge with a server-side script.
+                // You can access the token ID with `token.id`
+
+                $("<input type='text' />")
+                 .attr("value", token)
+                 .attr("id", "token")
+                 .appendTo("#createForm");
+                $("<input type='text' />")
+                 .attr("value", 0)
+                 .attr("id", "latitude")
+                 .appendTo("#createForm");
+                $("<input type='text' />")
+                 .attr("value", 0)
+                 .attr("id", "longitude")
+                 .appendTo("#createForm");
+                document.getElementById('createForm').submit();
+              }
+            });
+            document.getElementById('createButton').addEventListener('click', function(e) {
+              // Open Checkout with further options
+              handler.open({
+                name: 'hack_pizza',
+                description: document.getElementById('orderer_slices').value + ' slices ($' + (document.getElementById('slice_cost').value*document.getElementById('orderer_slices').value).toFixed(2) + ')',
+                amount: (document.getElementById('slice_cost').value*document.getElementById('orderer_slices').value)*100
+              });
+              e.preventDefault();
+            });
+            </script>
 					</div>
-			</form>
+        </form>
 			</div>
 		</div>
 	</div>
