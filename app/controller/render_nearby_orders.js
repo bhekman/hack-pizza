@@ -6,7 +6,10 @@ module.exports = function renderNearbyOrders(max_orders, view, res) {
   var db = mongoose.createConnection(db_config.url);
   var Order = mongoose.model('Order', orderSchema);
 
-  Order.find({ status: 'created' }, function(err,docs){
+  Order.find({ $and:[
+      { $or:[{'status': 'created'}, {'status': 'ordered'}]},
+      { 'available_slices': { $gt: 0 }}
+    ]}, function(err,docs){
       if (err)
           console.log('error occured in the database');
       console.log(docs);

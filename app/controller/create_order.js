@@ -86,21 +86,27 @@ module.exports = function createOrder(user_email, body, res) {
   });
 
   // Order Creation
+  var available_slices = (body.total_slices - body.orderer_slices);
+  var order_status = 'created';
+  if (available_slices == 0) {
+    order_status = 'ordered';
+  }
   var new_order = new Order({
-    name: san.sanitize(body.name),
-    description: san.sanitize(body.description),
-    total_slices: body.total_slices,
-    available_slices: (body.total_slices - body.orderer_slices),
-    slice_cost: body.slice_cost,
-    status: 'created',
-    orderer: {
-      email: san.sanitize(user_email),
-      slices: san.sanitize(body.orderer_slices),
+    'name': san.sanitize(body.name),
+    'description': san.sanitize(body.description),
+    'total_slices': body.total_slices,
+    'available_slices': available_slices,
+    'slice_cost': body.slice_cost,
+
+    'status': order_status,
+    'orderer': {
+      'email': san.sanitize(user_email),
+      'slices': san.sanitize(body.orderer_slices),
     },
-    location: {
-      latitude: body.latitude,
-      longitude: body.longitude,
-      description: san.sanitize(body.location_description),
+    'location': {
+      'latitude': body.latitude,
+      'longitude': body.longitude,
+      'description': san.sanitize(body.location_description),
     }
   });
 
