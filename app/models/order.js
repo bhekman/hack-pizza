@@ -16,6 +16,7 @@ var orderSchema = mongoose.Schema({
   groupies         : [{
     email      : String,
     slices     : Number,
+    delivered  : Boolean,
   }],
   location         : {
     latitude     : Number,
