@@ -54,7 +54,8 @@ module.exports = function(app, passport) {
 	// SINGLE ORDER PAGE
 	app.get('/order/:key(*)', isLoggedIn, function(req, res) {
 		render_order = require('./controller/render_order.js');
-    render_order(req.params.key, "order.ejs", res);
+    getCurrentUser = require('./controller/get_current_user.js');
+    render_order(getCurrentUser(req), req.params.key, "order.ejs", res);
 	});
 
 	// API ==============================

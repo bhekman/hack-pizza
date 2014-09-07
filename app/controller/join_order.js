@@ -64,6 +64,12 @@ module.exports = function createOrder(groupie_email, query, res) {
           email: san.sanitize(groupie_email),
           slices: san.sanitize(query.groupie_slices),
       });
+      doc.available_slices -= parseInt(query.groupie_slices);
+
+      if (doc.available_slices == 0) {
+        // TODO(bhekman): MAKE AN ACTUAL ORDER.
+        doc.status = 'ordered';
+      }
       console.log(doc);
 
       doc.save(function (err) {
