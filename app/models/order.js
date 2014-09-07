@@ -7,6 +7,7 @@ var orderSchema = mongoose.Schema({
     name             : String,
     description      : String,
     total_slices     : Number,
+    available_slices : Number,
     slice_cost       : Number,
     status           : String, // created, ordered, delivered
     orderer          : {
