@@ -40,7 +40,15 @@ module.exports = function(app, passport) {
 	app.get('/create-order', isLoggedIn, function(req, res) {
     create_order = require('./controller/create_order.js');
     getCurrentUser = require('./controller/get_current_user.js');
-    var new_order = create_order(getCurrentUser(req), req.query, res);
+    create_order(getCurrentUser(req), req.query, res);
+	});
+
+	// JOIN ORDER
+  // req.query should have: order_key, groupid_slices
+	app.get('/join-order', isLoggedIn, function(req, res) {
+    join_order = require('./controller/join_order.js');
+    getCurrentUser = require('./controller/get_current_user.js');
+    join_order(getCurrentUser(req), req.query, res);
 	});
  
 	// SINGLE ORDER PAGE

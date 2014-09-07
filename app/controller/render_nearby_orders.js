@@ -9,7 +9,7 @@ module.exports = function renderNearbyOrders(max_orders, view, res) {
   Order.find({ status: 'created' }, function(err,docs){
       if (err)
           console.log('error occured in the database');
-      //console.log(docs);
+      console.log(docs);
       res.render(view, { orders : docs });
       // TODO(bhekman): fix order limiting
   })/*.limit(max_orders)*/;  

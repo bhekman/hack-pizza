@@ -13,7 +13,7 @@ module.exports = function inactivateOrder(key, view, res) {
       doc.save(function (err) {
         if (err)
           return handleError(err);
-        res.send(order);
+        res.send(doc);
       });
       res.render(view, { order : doc });
   });
