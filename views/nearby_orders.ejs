@@ -112,8 +112,8 @@
 				</table>
 				<hr>
 				<div class="progress">
-					<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-					6/10 slices
+					<div class="progress-bar" role="progressbar" aria-valuenow="<%= orders[i].available_slices/orders[i].total_slices*100 %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= orders[i].available_slices/orders[i].total_slices*100 %>%;">
+					<%= orders[i].available_slices %>/<%= orders[i].total_slices %> slices
 					</div>
 				</div>
 			</div>

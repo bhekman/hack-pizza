@@ -34,15 +34,20 @@
           <p><%= order.description %></p>
           <h4>Price per slice</h4>
           <p>$<%= Number(order.slice_cost).toFixed(2) %></p>
+          <h4>Available slices</h4>
+          <p><%= order.avialable_slices + " out of " + order.total_slices + "slices" %></p>
           <h4>Status</h4>
           <p><%= order.status %></p>
           <% if(is_groupie) { %>
-          <form action="/confirm-delivery" method="post">
-            <input type="text" name="order_key" value="<%= order._id %>" hidden>
-            <input type="submit" class="btn btn-default btn-large" value="Confirm Delivery">
-          </form>
+            <form action="/confirm-delivery" method="post">
+              <input type="text" name="order_key" value="<%= order._id %>" hidden>
+              <input type="submit" class="btn btn-default btn-large" value="Confirm Delivery">
+            </form>
           <% } else if(is_owner) { %>
-
+            <form action="/confirm-delivery" method="post">
+              <input type="text" name="order_key" value="<%= order._id %>" hidden>
+              <input type="submit" class="btn btn-default btn-large" value="Confirm Delivery">
+            </form>
           <% } else { %>
             <h4>Join Order</h4>
             <form class=form-horizontal" action="/join-order" method="post">
