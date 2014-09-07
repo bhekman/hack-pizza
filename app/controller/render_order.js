@@ -9,6 +9,7 @@ module.exports = function getOrder(key, view, res) {
   Order.findOne({ _id: key },function(err,docs){
       if (err)
           console.log('error occured in the database');
+      console.log(docs);
       res.render(view, { order : docs });
   });
 }
