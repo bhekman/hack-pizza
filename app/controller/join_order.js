@@ -64,17 +64,19 @@ module.exports = function createOrder(groupie_email, query, res) {
           slices: san.sanitize(query.groupie_slices),
           delivered: false,
       });
-      doc.available_slices -= parseInt(query.groupie_slices);
+      doc.available_slices = parseInt(doc.available_slices) - parseInt(query.groupie_slices);
 
-      if (doc.available_slices == 0) {
+      if (parseInt(doc.available_slices) == 0) {
         // TODO(bhekman): MAKE AN ACTUAL ORDER.
         doc.status = 'ordered';
       }
       console.log(doc);
 
       doc.save(function (err) {
-        if (err)
-          return handleError(err);
+        if (err) {
+          console.log('error occured while saving: ' + err);
+          return;
+        }
         res.redirect('/order/' + san.sanitize(query.order_key));
       });
   });
