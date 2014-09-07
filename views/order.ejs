@@ -1,8 +1,7 @@
 <!doctype html>
-<%= order %>
-<!--<html>
+<html>
 <head>
-	<title>Node Authentication</title>
+	<title>Order Status</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="static/css/jumbotron-narrow.css">
@@ -25,9 +24,23 @@
 		<h1>hack_pizza</h1>
 	</div>
   <div>
-		<h2><%= order.name ></h2>
+    <div class="row marketing">
+        <div class="col-lg-6">
+          <h1><%= order.name %></h1>
+          <h4>Description</h4>
+          <p><%= order.description %></p>
+          <h4>Price per slice</h4>
+          <p>$<%= Number(order.slice_cost).toFixed(2) %></p>
+          <h4>Status</h4>
+          <p><%= order.status %></p>
+        </div>
+
+        <div class="col-lg-6">
+          <img src="/static/img/sample_map.png">
+        </div>
+      </div>
 		<br>
   </div>
 </div>
 </body>
-</html> -->
+</html>
