@@ -1,6 +1,5 @@
 var val = require('validator');
 var san = require('sanitizer');
-
 var mongoose = require('mongoose');
 var db_config = require('../../config/database.js');
 var orderSchema = require('../models/order.js');
@@ -63,6 +62,7 @@ module.exports = function createOrder(groupie_email, query, res) {
       doc.groupies.push({
           email: san.sanitize(groupie_email),
           slices: san.sanitize(query.groupie_slices),
+          delivered: false,
       });
       doc.available_slices -= parseInt(query.groupie_slices);
 

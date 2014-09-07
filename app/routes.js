@@ -34,8 +34,15 @@ module.exports = function(app, passport) {
     getCurrentUser = require('./controller/get_current_user.js');
     render_my_orders(getCurrentUser(req), -1, "my_orders.ejs", res);
 	});
+ 
+	// SINGLE ORDER PAGE
+	app.get('/order/:key(*)', isLoggedIn, function(req, res) {
+		render_order = require('./controller/render_order.js');
+    getCurrentUser = require('./controller/get_current_user.js');
+    render_order(getCurrentUser(req), req.params.key, "order.ejs", res);
+	});
 
-	// DATABASE WRAPPERS ==============================
+  // INTERNAL CALLS
 	// CREATE ORDER
 	app.post('/create-order', isLoggedIn, function(req, res) {
     create_order = require('./controller/create_order.js');
@@ -44,18 +51,19 @@ module.exports = function(app, passport) {
 	});
 
 	// JOIN ORDER
-  // req.query should have: order_key, groupid_slices
+  // expects: order_key, groupid_slices
 	app.post('/join-order', isLoggedIn, function(req, res) {
     join_order = require('./controller/join_order.js');
     getCurrentUser = require('./controller/get_current_user.js');
     join_order(getCurrentUser(req), req.body, res);
 	});
- 
-	// SINGLE ORDER PAGE
-	app.get('/order/:key(*)', isLoggedIn, function(req, res) {
-		render_order = require('./controller/render_order.js');
+
+	// CONFIRM DELIVERY
+  // expects: order_key
+	app.post('/confirm-delivery', isLoggedIn, function(req, res) {
+    confirm_delivery = require('./controller/confirm_delivery.js');
     getCurrentUser = require('./controller/get_current_user.js');
-    render_order(getCurrentUser(req), req.params.key, "order.ejs", res);
+    confirm_delivery(getCurrentUser(req), req.body.order_key, res);
 	});
 
 	// API ==============================
