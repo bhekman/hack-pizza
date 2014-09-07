@@ -21,7 +21,7 @@
           validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-          order_name: {
+          name: {
             message: 'The order name is not valid',
             validators: {
               notEmpty: {
@@ -33,7 +33,7 @@
               }
             }
           },
-          order_description: {
+          description: {
             message: 'The order description is not valid',
             validators: {
               notEmpty: {
@@ -130,14 +130,14 @@
 					<div class="form-group">
 							<label for="inputName" class="control-label col-xs-3">Your Name</label>
 							<div class="col-xs-8">
-									<input type="text" class="form-control" name="order_name" id="order_name" placeholder="Name">
+									<input type="text" class="form-control" name="name" id="name" placeholder="Name">
 							</div>
 					</div>
 					<!-- Description Input -->
 					<div class="form-group">
 							<label for="inputDescription" class="control-label col-xs-3">Order Description</label>
 							<div class="col-xs-8">
-									<textarea class="form-control" name="order_description" id="order_description" placeholder="Description"></textarea>
+									<textarea class="form-control" name="description" id="description" placeholder="Description"></textarea>
 							</div>
 					</div>
 					<!-- Number of Slices Input -->

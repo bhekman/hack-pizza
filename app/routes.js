@@ -40,7 +40,7 @@ module.exports = function(app, passport) {
 	app.post('/create-order', isLoggedIn, function(req, res) {
     create_order = require('./controller/create_order.js');
     getCurrentUser = require('./controller/get_current_user.js');
-    create_order(getCurrentUser(req), req.query, res);
+    create_order(getCurrentUser(req), req.body, res);
 	});
 
 	// JOIN ORDER

@@ -21,6 +21,10 @@ module.exports = function createOrder(user_email, query, res) {
         + ", isn't an int!");
     return;
   }
+  if (parseInt(query.total_slices) < 0) {
+    res.send("must create at least one slice.");
+    return;
+  }
   // available_slices is computed.
   if (!val.isFloat(query.slice_cost)) {
     res.send("slice_cost, " + san.sanitize(query.slice_cost)
@@ -41,6 +45,10 @@ module.exports = function createOrder(user_email, query, res) {
   if (!val.isInt(query.orderer_slices)) {
     res.send("orderer_slices, " + san.sanitize(query.orderer_slices)
         + ", isn't an int!");
+    return;
+  }
+  if (parseInt(query.orderer_slices) < 0) {
+    res.send("must order at least one slice.");
     return;
   }
   if (!val.isFloat(query.latitude)) {
