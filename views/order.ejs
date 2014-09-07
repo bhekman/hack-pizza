@@ -16,6 +16,9 @@
 		.borderless > tbody > tr > td {
 			border: none;
 		}
+    .test {
+      background-color: black;
+    }
 	</style>
 </head>
 <body>
@@ -24,7 +27,6 @@
 	<div class="jumbotron text-center">
 		<h1>hack_pizza</h1>
 	</div>
-  <div>
     <div class="row marketing">
         <div class="col-lg-6">
           <h1><%= order.name %></h1>
@@ -39,6 +41,19 @@
             <input type="text" name="order_key" value="<%= order._id %>" hidden>
             <input type="submit" class="btn btn-default btn-large" value="Confirm Delivery">
           </form>
+          <% } else if(is_owner) { %>
+
+          <% } else { %>
+            <h4>Join Order</h4>
+            <form class=form-horizontal" action="/join-order" method="post">
+              <div class="form-group">
+                <input type="text" name="order_key" value="<%= order._id %>" hidden>
+                <div class="cols-md-1">
+                  <input type="number" min="1" class="form-control" name="groupie_slices" id="groupie_slices" placeholder="Number of slices">
+                </div>
+                <input type="submit" class="btn btn-default btn-large" value="Join Order">
+              </div>
+            </form>
           <% } %>
         </div>
 

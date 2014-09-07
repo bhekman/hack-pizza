@@ -51,7 +51,7 @@ module.exports = function(app, passport) {
 	});
 
 	// JOIN ORDER
-  // expects: order_key, groupid_slices
+  // expects: order_key, groupie_slices
 	app.post('/join-order', isLoggedIn, function(req, res) {
     join_order = require('./controller/join_order.js');
     getCurrentUser = require('./controller/get_current_user.js');
